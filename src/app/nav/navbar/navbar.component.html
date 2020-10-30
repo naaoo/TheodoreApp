@@ -1,0 +1,32 @@
+<div class="navbar">
+  <div class="nav-item icon" [routerLink]="['/']" routerLinkActive="active">
+    <img id="logo" src="../../../assets/icons/logo.ico" alt="Theodore Logo" height=25px>
+  </div>
+
+  <div class="nav-item box" [routerLink]="['/editions']" routerLinkActive="active">
+    <a>Editions</a>
+  </div>
+  <div class="nav-item box" [routerLink]="['/editions/new']" routerLinkActive="active">
+    <a>Add Edition</a>
+  </div>
+
+  <div class="nav-item">
+    <form id="searchForm" (ngSubmit)="searchEdition(searchTerm)">
+      <div class="form-group-nav">
+        <input [(ngModel)]="searchTerm" name="searchTerm" type="text" placeholder="Search for edition">
+        <button class="btn btn-default">Search</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="nav-item box">
+    <a class="pick-drop">Brands</a>
+  </div>
+
+  <div class="nav-item box" routerLinkActive="active">
+    <a *ngIf="!auth.isAuthenticated" [routerLink]="['/login']">Login</a>
+    <a *ngIf="auth.isAuthenticated" [routerLink]="['/user']">Welcome {{this.auth.currentUser.name}}</a>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

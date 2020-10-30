@@ -1,0 +1,62 @@
+<div class="site-container col-md-6">
+  <h2>Create Edition</h2>
+
+  <form class="edition-form" #newEditionForm="ngForm" (ngSubmit)="saveEdition(newEditionForm.value)"
+    autocomplete="off" novalidate>
+
+    <div class="form-group" [ngClass]="{'error': newEditionForm.controls.brand?.invalid && newEditionForm.controls.brand?.touched}">
+      <label for="brand">Brand:</label>
+      <em *ngIf="newEditionForm.controls.brand?.invalid && (newEditionForm.controls.brand?.touched)">Required</em>
+      <input (ngModel)="newEdition.brand" name="brand" required id="brand" type="text" class="form-control" placeholder="the brand..." />
+    </div>
+
+    <div class="form-group" [ngClass]="{'error': newEditionForm.controls.name?.invalid && newEditionForm.controls.name?.touched}">
+      <label for="name">Name:</label>
+      <em *ngIf="newEditionForm.controls.name?.invalid && (newEditionForm.controls.name?.touched)">Required</em>
+      <input (ngModel)="newEdition.name" name="name" required id="name" type="text" class="form-control" placeholder="the name..." />
+    </div>
+
+    <div class="form-group">
+      <label for="age">Aged:</label>
+      <em *ngIf="newEditionForm.controls.age?.invalid && (newEditionForm.controls.age?.touched)">Weird age...</em>
+      <input (ngModel)="newEdition.age" name="age" id="age" type="number" class="form-control" placeholder="age in years..." />
+    </div>
+
+    <div class="form-group">
+      <label for="yearBottled">Bottled:</label>
+      <em *ngIf="(newEditionForm.controls.yearBottled?.invalid) && (newEditionForm.controls.yearBottled?.touched)">Weird year...</em>
+      <input (ngModel)="newEdition.yearBottled" name="yearBottled" id="yearBottled" type="number" class="form-control" placeholder="bottled in year..." />
+    </div>
+
+    <!-- <div class="form-group">
+      <section >
+        <label for="barrels">Barrels:</label>
+        <input *ngFor="let barrel of barrels; let i = index" [(ngModel)]="newEdition.barrels"
+          name="barrel_{{i}}" id="barrels" type="text" class="form-control" placeholder="kind of barrel..." />
+        <button class="btn btn-default" type="button" (click)="addBarrel()">add barrel</button>
+      </section>
+
+    </div> -->
+    <div [formGroup]="barrelForm" class="form-group barrels-form">
+      <label for="barrel"> Barrel:</label>
+      <div formArrayName="barrels" *ngFor="let barrel of barrelForm.get('barrels')['controls']; let i = index">
+          <input  formControlName="name" placeholder="kind of barrel...">
+      </div>
+      <button class="btn btn-default" type="button" (click)="addBarrel()">add another barrel</button>
+      Barrel: {{ barrelForm.controls.barrels}}
+    </div>
+
+
+
+    <div class="form-group">
+      <button type="submit" [disabled]="newEditionForm.invalid"
+      class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-default"
+      (click)="cancel()">Cancel</button>
+    </div>
+
+
+
+  </form>
+
+</div>

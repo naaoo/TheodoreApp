@@ -1,0 +1,21 @@
+.edition-form {
+  display: grid;
+}
+
+.form-group {
+  display: grid;
+  margin: 10px;
+  grid-template-rows: auto auto;
+  grid-template-columns: 100px 100px;
+  row-gap: 5px;
+}
+
+input {
+  width: 200px;
+  grid-row-start: 2;
+}
+
+em {
+  grid-column-start: 2;
+  justify-self: right;
+}

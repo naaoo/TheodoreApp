@@ -1,1 +1,70 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: wrap;
+  background-color: #491b19;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  width: max-content;
+  min-width: 800px;
+  margin-top: 20px;
+  margin-left: 20px;
+  align-items: center;
+  text-align: center;
+  color: #ffe1e3;
+}
+
+.box {
+  border: 2px solid #660b06;
+  background-color: #faaaa6;
+  border-radius: 10px;
+  padding: 5px;
+  height: 25px !important;
+  width:135px;
+}
+
+.box:hover {
+  background-color: #ff8882;
+}
+
+.site-container {
+  margin-top: 70px;
+  margin-left: 20px;
+  align-items: left;
+  text-align: left;
+}
+
+h1 {
+  color: #ffe1e3;
+}
+
+em {
+  float:right; color:#ffe1e3; padding-left:10px;
+}
+
+.error input {
+  background-color:#faaaa6;
+}
+
+.btn {
+  padding: 3px;
+  font-size: 14px;
+  border-radius: 10px;
+  margin-left: 7px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #b8b8b8;
+}
+
+input {
+  font-size: 14px;
+  padding: 3px;
+  border-radius: 10px;
+}
+
+label {
+  font-size: 18px;
+}
+
+
