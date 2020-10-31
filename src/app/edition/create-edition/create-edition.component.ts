@@ -1,9 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/users/auth.service';
 import { Edition } from '../edition.model';
 import { EditionService } from '../edition.service';
-import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+
+function validateAge(c: AbstractControl): { [ key: string]: boolean } | null {
+  if (c.value !== null && (isNaN(c.value) || c.value < 0)){
+      return { 'age': true}
+  }
+  return null;
+}
+
+function validateYear(c: AbstractControl): { [ key: string]: boolean } | null {
+  if (c.value !== null && (isNaN(c.value) || c.value < 0 || c.value > 9999)){
+      return { 'year': true}
+  }
+  return null;
+}
 
 @Component({
   selector: 'app-create-edition',
@@ -11,6 +24,46 @@ import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
   styleUrls: ['./create-edition.component.css']
 })
 export class CreateEditionComponent implements OnInit {
+  editionForm: FormGroup;
+  edition = new Edition();
+
+  constructor(public authService:AuthService, private formBuilder:FormBuilder) {
+
+  }
+
+  ngOnInit() {
+    this.editionForm = this.formBuilder.group({
+      id: null,
+      brand: ['', Validators.required],
+      name: ['', Validators.required],
+      age: [null, validateAge],
+      yearBottled: [null, validateYear],
+      barrels: [['']],
+      createdAt: new Date,
+      createdBy: 1,
+    })
+  }
+
+  save() {
+    console.log(this.editionForm);
+    console.log('Saved: ' + JSON.stringify(this.editionForm.value));
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* export class CreateEditionComponent implements OnInit {
   editionForm: FormGroup;
   barrelArray: FormArray;
   barrelGroup: FormGroup;
@@ -32,7 +85,7 @@ export class CreateEditionComponent implements OnInit {
   /* public barrels: any[] = [{
     id: 1,
     name: ''
-  }]; */
+  }];
 
   constructor(private formBuilder:FormBuilder, private auth:AuthService, private router:Router, private editionService:EditionService) { }
 
@@ -49,11 +102,11 @@ export class CreateEditionComponent implements OnInit {
       createdAt: Date,
       createdBy: null
     })
-/*
+
 
     this.barrelForm = this.formBuilder.group({
       barrels: this.formBuilder.array([ this.createBarrels() ])
-    }); */
+    });
   }
 
   createBarrels(): FormGroup {
@@ -79,4 +132,4 @@ export class CreateEditionComponent implements OnInit {
     this.router.navigate(['/'])
   }
 
-}
+} */

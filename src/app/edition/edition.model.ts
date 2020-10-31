@@ -7,7 +7,7 @@ export class Edition {
   name: string;
   age?: number;
   yearBottled?: number;
-  barrels: any;
+  barrels: string[];
   createdAt: Date;
   createdBy: number;
 }

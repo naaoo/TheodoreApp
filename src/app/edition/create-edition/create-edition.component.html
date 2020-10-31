@@ -1,5 +1,51 @@
 <div class="site-container col-md-6">
   <h2>Create Edition</h2>
+  <form novalidate (ngSubmit)="save()" [formGroup]="editionForm">
+
+    <div class ="form-group">
+      <label for="brand">Brand:</label>
+      <em *ngIf="editionForm.controls.brand?.invalid && (editionForm.controls.brand?.touched)">Required</em>
+      <input class="form-control" formControlName="brand" id="brand" type="text" placeholder="the brand... (required)" />
+    </div>
+
+    <div class ="form-group">
+      <label for="name">Name:</label>
+      <em *ngIf="editionForm.controls.name?.invalid && (editionForm.controls.name?.touched)">Required</em>
+      <input class="form-control" formControlName="name" id="name" type="text" placeholder="the name... (required)" />
+    </div>
+
+    <div class ="form-group">
+      <label for="age">Age:</label>
+      <em *ngIf="editionForm.get('age').errors?.age">not a valid age</em>
+      <input class="form-control" formControlName="age" id="age" type="number text" placeholder="the age..." />
+
+    </div>
+
+    <div class ="form-group">
+      <label for="yearBottled">Bottled:</label>
+      <em *ngIf="editionForm.get('yearBottled').errors?.year">not a valid year</em>
+      <input class="form-control" formControlName="yearBottled" id="yearBottled" type="number text " placeholder="the year..." />
+    </div>
+
+    <div class ="form-group">
+      <label for="barrels">Barrel:</label>
+      <em *ngIf="editionForm.controls.barrels?.invalid && (editionForm.controls.barrels?.touched)">Required</em>
+      <input class="form-control" formControlName="barrels" id="barrels" type="text" placeholder="the barrel..." />
+    </div>
+
+    <div class="form-group">
+      <button class="btn btn-primary" type="submit" style="width:80px"
+        [title]="editionForm.valid ? 'Save Edition' : 'Disabled until the form data is valid'"
+        [disabled]="!editionForm.valid">Save
+      </button>
+    </div>
+
+  </form>
+</div>
+<br>Value: {{editionForm.value | json}}
+
+<!-- <div class="site-container col-md-6">
+  <h2>Create Edition</h2>
 
   <form class="edition-form" #newEditionForm="ngForm" (ngSubmit)="saveEdition(newEditionForm.value)"
     autocomplete="off" novalidate>
@@ -41,13 +87,13 @@
 
 
 
-    <!-- <div [formGroup]="barrels" class="form-group barrels-form">
+     <div [formGroup]="barrels" class="form-group barrels-form">
       <label for="name"> Barrel:</label>
       <div formArrayName="barrels" *ngFor="let barrel of barrelForm.get('barrels')['controls']; let i = index">
           <input  formControlName="name" placeholder="kind of barrel...">
       </div>
       <button class="btn btn-default" type="button" (click)="addBarrel()">add another barrel</button>
-    </div> -->
+    </div>
 
 
 
@@ -63,4 +109,4 @@
   </form>
 
 </div>
-<br>Barrel: {{barrels.get('0.name')?.value}}
+<br>Barrel: {{barrels.get('0.name')?.value}} -->

@@ -14,7 +14,6 @@ import { EditionDetailsComponent, CreateEditionComponent } from './edition/index
 import { EditionListComponent } from './edition/edition-list/edition-list.component';
 import { EditionThumbnailComponent } from './edition/edition-thumbnail/edition-thumbnail.component';
 import { TastingThumbnailComponent } from './tastings/tasting-thumbnail/tasting-thumbnail.component';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 
 @NgModule({
   declarations: [
