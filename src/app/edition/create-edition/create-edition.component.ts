@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/users/auth.service';
 import { Edition } from '../edition.model';
 import { EditionService } from '../edition.service';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-create-edition',
@@ -11,8 +11,14 @@ import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
   styleUrls: ['./create-edition.component.css']
 })
 export class CreateEditionComponent implements OnInit {
-  barrelForm: FormGroup;
-  barrels: FormArray;
+  editionForm: FormGroup;
+  barrelArray: FormArray;
+  barrelGroup: FormGroup;
+
+  get barrels(): FormArray{
+    return <FormArray>this.editionForm.get('barrels');
+  }
+
   public newEdition : Edition = {
     brand: '',
     name: '',
@@ -31,21 +37,33 @@ export class CreateEditionComponent implements OnInit {
   constructor(private formBuilder:FormBuilder, private auth:AuthService, private router:Router, private editionService:EditionService) { }
 
   ngOnInit() {
+    this.editionForm = this.formBuilder.group({
+      id : null,
+      brand: '',
+      name: '',
+      age: null,
+      yearBottled: null,
+      barrels : new FormGroup({
+        barrelName: new FormControl()
+      }),
+      createdAt: Date,
+      createdBy: null
+    })
+/*
+
     this.barrelForm = this.formBuilder.group({
-      barrels: this.formBuilder.array([ this.createBarrel() ])
-    });
+      barrels: this.formBuilder.array([ this.createBarrels() ])
+    }); */
   }
 
-  createBarrel(): FormGroup {
+  createBarrels(): FormGroup {
     return this.formBuilder.group({
       name: ''
     });
   }
 
   addBarrel(): void {
-    this.barrels = this.barrelForm.get('barrels') as FormArray;
-    this.barrels.push(this.createBarrel());
-    console.log(this.barrels);
+    this.barrels.push(this.createBarrels());
   }
 
   removeBarrel() {
