@@ -6,16 +6,30 @@
   display: grid;
   margin: 10px;
   grid-template-rows: auto auto;
-  grid-template-columns: 100px 100px;
+  grid-template-columns: 100px 120px;
   row-gap: 5px;
 }
 
 input {
-  width: 200px;
+  width: 210px;
   grid-row-start: 2;
 }
 
 em {
   grid-column-start: 2;
   justify-self: right;
+  color: #ff8882;
+}
+
+.barrels-form-group {
+  display: grid;
+  margin: 10px;
+  grid-template-columns: 100px;
+  row-gap: 5px;
+}
+
+.btn-primary {
+  margin-top: 15px;
+  padding: 8px;
+  font-weight: bold;
 }

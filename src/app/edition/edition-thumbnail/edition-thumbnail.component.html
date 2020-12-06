@@ -1,3 +1,14 @@
-<p>
-  edition-thumbnail works!
-</p>
+<div class="thumbnail box" [routerLink]="['/editions/', edition.id]">
+  <div class="thumb-item th-brand bold">
+    {{edition?.brand}}
+  </div>
+  <div class="thumb-item th-name bold">
+    {{edition?.name}}
+  </div>
+  <div class="thumb-item th-age" [ngClass]="{'bold' : !edition?.name}">
+    {{edition?.age}} <div *ngIf="edition?.age">&nbsp;y</div>
+  </div>
+  <div class="thumb-item th-vol">
+    {{edition?.vol | number:'1.1'}} <div *ngIf="edition?.vol">&nbsp;%</div>
+  </div>
+</div>

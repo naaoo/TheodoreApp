@@ -1,0 +1,27 @@
+.thumbnail {
+  width: 520px;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 30% 46% 12% 12%;
+  margin-top: 3px;
+  cursor: pointer;
+}
+
+.thumb-item {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.th-age, .th-vol {
+  display: grid;
+  grid-template-rows: 1;
+  grid-template-columns: auto auto;
+}
+
+.th-age {
+  justify-self: center;
+}
+
+.th-vol {
+  justify-self: end;
+}

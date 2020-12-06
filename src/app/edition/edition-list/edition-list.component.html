@@ -1,3 +1,6 @@
-<p>
-  edition-list works!
-</p>
+<div class="site-container col-md-6">
+  <h2>Edition List</h2>
+  <div *ngFor="let ed of editions | orderBy:'age' | orderBy: 'name' | orderBy:'brand'">
+    <app-edition-thumbnail [edition]="ed"></app-edition-thumbnail>
+  </div>
+</div>

@@ -4,10 +4,11 @@ import { User } from '../users';
 export class Edition {
   id?: number;
   brand: string;
-  name: string;
+  name?: string;
   age?: number;
+  vol?: number;
   yearBottled?: number;
-  barrels: string[];
+  barrels?: string[];
   createdAt: Date;
   createdBy: number;
 }

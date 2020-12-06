@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Edition } from '../edition.model';
 
 @Component({
   selector: 'app-edition-thumbnail',
@@ -6,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edition-thumbnail.component.css']
 })
 export class EditionThumbnailComponent implements OnInit {
+  @Input() edition:Edition
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
+
+  /* public goToEditionDetails() {
+    this.router.navigate(['editions/'], {})
+  } */
 
 }

@@ -6,8 +6,15 @@
   <div class="nav-item box" [routerLink]="['/editions']" routerLinkActive="active">
     <a>Editions</a>
   </div>
-  <div class="nav-item box" [routerLink]="['/editions/new']" routerLinkActive="active">
+
+  <div class="nav-item box" [routerLink]="['/editions/new']" *ngIf="this.auth.isAuthenticated">
     <a>Add Edition</a>
+  </div>
+
+  <div class="nav-item box" *ngIf="!this.auth.isAuthenticated"
+  (mouseover)="changeText=true" (mouseout)="changeText=false" [ngClass]="{'deactivated' : changeText}">
+    <a *ngIf="!changeText">Add Edition</a>
+    <a *ngIf="changeText">Log in first</a>
   </div>
 
   <div class="nav-item">
@@ -23,9 +30,11 @@
     <a class="pick-drop">Brands</a>
   </div>
 
-  <div class="nav-item box" routerLinkActive="active">
-    <a *ngIf="!auth.isAuthenticated" [routerLink]="['/login']">Login</a>
-    <a *ngIf="auth.isAuthenticated" [routerLink]="['/user']">Welcome {{this.auth.currentUser.name}}</a>
+  <div class="nav-item box" *ngIf="!auth.isAuthenticated" routerLinkActive="active" [routerLink]="['/login']">
+    <a>Login</a>
+  </div>
+  <div class="nav-item box" *ngIf="auth.isAuthenticated" routerLinkActive="active" [routerLink]="['/user']">
+    <a>{{this.auth.currentUser.name}}</a>
   </div>
 </div>
 

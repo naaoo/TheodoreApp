@@ -2,20 +2,38 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/users/auth.service';
 import { Edition } from '../edition.model';
 import { EditionService } from '../edition.service';
-import { AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators, FormArray, FormControl, ValidationErrors, ValidatorFn} from '@angular/forms';
 
-function validateAge(c: AbstractControl): { [ key: string]: boolean } | null {
+function validateAge(c: AbstractControl): { [key: string]: boolean } | null {
   if (c.value !== null && (isNaN(c.value) || c.value < 0)){
-      return { 'age': true}
+      return {'age': true}
   }
   return null;
 }
 
-function validateYear(c: AbstractControl): { [ key: string]: boolean } | null {
+function validateYear(c: AbstractControl): { [key: string]: boolean } | null {
   if (c.value !== null && (isNaN(c.value) || c.value < 0 || c.value > 9999)){
-      return { 'year': true}
+      return {'year': true}
   }
   return null;
+}
+
+function validateVol(c: AbstractControl): { [key: string]: boolean } | null {
+  if (c.value !== null && (isNaN(c.value) || c.value < 0 || c.value > 100)){
+      return {'vol': true}
+  }
+  return null;
+}
+
+export function oneOfControlRequired(...controls: AbstractControl[]): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+      for (const aControl of controls) {
+        if (!Validators.required(aControl)) {
+          return null;
+        }
+      }
+      return { oneOfRequired: true };
+   };
 }
 
 @Component({
@@ -26,8 +44,12 @@ function validateYear(c: AbstractControl): { [ key: string]: boolean } | null {
 export class CreateEditionComponent implements OnInit {
   editionForm: FormGroup;
   edition = new Edition();
+  get barrels():FormArray {
+    return <FormArray>this.editionForm.get('barrels');
+  }
 
-  constructor(public authService:AuthService, private formBuilder:FormBuilder) {
+  constructor(public authService:AuthService, private formBuilder:FormBuilder,
+    private editionService:EditionService) {
 
   }
 
@@ -35,101 +57,41 @@ export class CreateEditionComponent implements OnInit {
     this.editionForm = this.formBuilder.group({
       id: null,
       brand: ['', Validators.required],
-      name: ['', Validators.required],
-      age: [null, validateAge],
-      yearBottled: [null, validateYear],
-      barrels: [['']],
-      createdAt: new Date,
-      createdBy: 1,
-    })
-  }
-
-  save() {
-    console.log(this.editionForm);
-    console.log('Saved: ' + JSON.stringify(this.editionForm.value));
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* export class CreateEditionComponent implements OnInit {
-  editionForm: FormGroup;
-  barrelArray: FormArray;
-  barrelGroup: FormGroup;
-
-  get barrels(): FormArray{
-    return <FormArray>this.editionForm.get('barrels');
-  }
-
-  public newEdition : Edition = {
-    brand: '',
-    name: '',
-    age: null,
-    yearBottled: null,
-    barrels: [],
-    createdAt: new Date,
-    createdBy: 1//this.auth.currentUser.id
-  };
-
-  /* public barrels: any[] = [{
-    id: 1,
-    name: ''
-  }];
-
-  constructor(private formBuilder:FormBuilder, private auth:AuthService, private router:Router, private editionService:EditionService) { }
-
-  ngOnInit() {
-    this.editionForm = this.formBuilder.group({
-      id : null,
-      brand: '',
       name: '',
-      age: null,
-      yearBottled: null,
-      barrels : new FormGroup({
-        barrelName: new FormControl()
-      }),
-      createdAt: Date,
-      createdBy: null
-    })
-
-
-    this.barrelForm = this.formBuilder.group({
-      barrels: this.formBuilder.array([ this.createBarrels() ])
+      age: [null, validateAge],
+      vol: [null, validateVol],
+      yearBottled: [null, validateYear],
+      barrels: this.formBuilder.array([this.buildBarrel()]),
+      createdAt: new Date,
+      createdBy: this.authService.currentUser.id
     });
-  }
-
-  createBarrels(): FormGroup {
-    return this.formBuilder.group({
-      name: ''
-    });
+    this.editionForm.setValidators([
+      oneOfControlRequired(
+        this.editionForm.get('name'),
+        this.editionForm.get('age')
+      )
+    ]);
   }
 
   addBarrel(): void {
-    this.barrels.push(this.createBarrels());
+    this.barrels.push(this.buildBarrel());
   }
 
-  removeBarrel() {
-
+  buildBarrel(): FormGroup {
+    return this.formBuilder.group({
+      barrel: ['']
+    })
   }
 
-  saveEdition(formValues) {
-    this.editionService.saveEdition(formValues);
-    this.router.navigate(['/editions']);
-  }
+  /* lastBarrelFilled(): Boolean {
+      if (this.barrels[this.barrels.length - 1].value !== 'undefined') {
+        return true;
+      }
 
-  cancel() {
-    this.router.navigate(['/'])
-  }
+    return false;
+  } */
 
-} */
+  save() {
+    this.editionService.saveEdition(this.editionForm.value);
+  }
+}

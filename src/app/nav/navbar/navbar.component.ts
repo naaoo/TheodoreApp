@@ -10,8 +10,11 @@ import { AuthService } from '../../users/auth.service';
 export class NavbarComponent implements OnInit {
   searchTerm: string="";
   foundTastings: Tasting[];
+  changeText: boolean;
 
-  constructor(public auth:AuthService) { }
+  constructor(public auth:AuthService) {
+    this.changeText = false;
+   }
 
   ngOnInit() {
   }

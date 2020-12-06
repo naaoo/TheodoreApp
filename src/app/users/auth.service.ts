@@ -4,11 +4,13 @@ import { User } from './user.model';
 import { catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
+import { AppSettings } from '../app-settings';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  userUrl = AppSettings.API_ENDPOINT + 'user';
   currentUser: User;
   loginInvalid = false;
   isAuthenticated = false;
@@ -18,7 +20,7 @@ export class AuthService {
   loginUser(enteredName:string, enteredPW:string) {
     let options = { headers: new HttpHeaders({ 'Content-Type': 'application/json'})};
 
-    this.http.get('https://localhost:44326/user', options)
+    this.http.get(this.userUrl, options)
       .subscribe(resp => {
         if(!resp) {
           this.loginInvalid = true;
@@ -27,7 +29,6 @@ export class AuthService {
           this.setCurrentUser(resp, enteredName, enteredPW);
           this.router.navigate(['/editions']);
         }
-
       });
   }
 
