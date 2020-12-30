@@ -1,3 +1,53 @@
 <div class="site-container col-md-6">
-  <h2>{{this.edition.brand}} {{this.edition.name}} <p *ngIf="!this.edition.name">{{this.edition.age}}</p></h2>
+  <div class="edition-details">
+    <h3 class="header">
+      <div id="brand" >{{this.edition.brand}}</div>
+      <div id="name" *ngIf="this.edition.name">{{this.edition.name}}</div>
+      <div id="name" *ngIf="!this.edition.name">{{this.edition.age}} YO</div>
+    </h3>
+    <div class="detail-contents">
+      <div class="detail-item">
+        <div class="item-label">
+          Age:
+        </div>
+        <div class="item-value" *ngIf="this.edition.age"> {{this.edition.age}} years</div>
+        <div class="item-value" *ngIf="!this.edition.age">-</div>
+      </div>
+      <div class="detail-item">
+        <div class="item-label">Region:</div>
+        <div class="item-value">{{this.edition.region}}</div>
+      </div>
+      <div class="detail-item">
+        <div class="item-label">Bottled in:</div>
+        <div class="item-value" *ngIf="this.edition.yearBottled">{{this.edition.yearBottled}}</div>
+        <div class="item-value" *ngIf="!this.edition.yearBottled">-</div>
+      </div>
+      <div class="detail-item">
+        <div class="item-label">Vol:</div>
+        <div class="item-value">{{this.edition.vol}} %</div>
+      </div>
+      <div class="detail-item">
+        <div class="item-label">Barrels:</div>
+        <div class="item-value">
+          <div *ngFor="let ba of this.edition.barrels">
+            <div *ngIf="ba.length > 0">
+              {{ba}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tasting-summary">
+      <img src="assets/circle-paceholder.png" alt="placeholder" height="230px">
+    </div>
+  </div>
+  <div class="edition-buttons">
+    <div class="nav-item box" *ngIf="this.auth.isAuthenticated"><a>Edit Edition</a></div>
+    <div class="nav-item box" *ngIf="this.auth.isAuthenticated" [routerLink]="['/tastings/new']"><a>Add Tasting</a></div>
+  </div>
+
+  <div>Tasting List</div>
 </div>
+
+
+

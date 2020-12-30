@@ -58,6 +58,7 @@ export class CreateEditionComponent implements OnInit {
       id: null,
       brand: ['', Validators.required],
       name: '',
+      region: '',
       age: [null, validateAge],
       vol: [null, validateVol],
       yearBottled: [null, validateYear],

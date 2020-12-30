@@ -15,11 +15,28 @@ body {
 .box {
   border: 2px solid #660b06;
   background-color: #faaaa6;
-  border-radius: 10px;
+  border-radius: 7px;
   padding: 5px;
   height: 25px !important;
   width:135px;
   color: #660b06;
+}
+
+.nav-item {
+  text-align: center;
+  font-size: 16px;
+  color: black;
+  height: 20px;
+  line-height: 16px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.nav-item a {
+  color: #590400;
+  text-decoration: none;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .box:hover {

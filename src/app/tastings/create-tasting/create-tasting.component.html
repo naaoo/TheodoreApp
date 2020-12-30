@@ -1,3 +1,98 @@
-<p>
-  create-tasting works!
-</p>
+<div class="site-container col-md-6">
+  <h2>Add Tasting</h2>
+  <form class="form" novalidate (ngSubmit)="save()" [formGroup]="tastingForm">
+
+    <div class="form-group">
+      <label for="date">Date: </label>
+      <input formControlName="date" type="date">
+    </div>
+
+    <div class="form-group">
+      <label for="author">Author:</label>
+      <div id="author" name="author">{{this.authService.currentUser.name}}</div>
+    </div>
+
+    <div class="form-group">
+      <label for="taste">Nose:</label>
+      <div id="nose" formArrayName="nose" *ngFor="let n of nose.controls; let i=index">
+        <div [formGroupName]="i">
+          <input class="form-control" formControlName="nose" id="{{'nose' + i}}" type="text"
+            placeholder="nose..."/>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="taste">Taste:</label>
+      <div id="taste" formArrayName="taste" *ngFor="let t of taste.controls; let i=index">
+        <div [formGroupName]="i">
+          <input class="form-control" formControlName="taste" id="{{'taste' + i}}" type="text"
+            placeholder="taste..."/>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" id="ratings">
+      <div class="rating">
+        <label for="sweet">Sweetness: </label>
+        <input formControlName="sweet" type="range" id="sweet" name="sweet" min="0" max="10" value="5" oninput="this.nextElementSibling.value = this.value">
+        <output>5</output>
+      </div>
+
+      <div class="rating">
+        <label for="spice">Spicyness: </label>
+        <input formControlName="spice" type="range" id="spice" name="spice" min="0" max="10" value="5" oninput="this.nextElementSibling.value = this.value">
+        <output>5</output>
+      </div>
+
+      <div class="rating">
+        <label for="smoke">Smoke: </label>
+        <input formControlName="smoke" type="range" id="smoke" name="smoke" min="0" max="10" value="5" oninput="this.nextElementSibling.value = this.value">
+        <output>5</output>
+      </div>
+
+      <div class="rating">
+        <label for="sherry">Sherry: </label>
+        <input formControlName="sherry" type="range" id="sherry" name="sherry" min="0" max="10" value="5" oninput="this.nextElementSibling.value = this.value">
+        <output>5</output>
+      </div>
+
+      <div class="rating">
+        <label for="wood">Wood: </label>
+        <input formControlName="wood" type="range" id="wood" name="wood" min="0" max="10" value="5" oninput="this.nextElementSibling.value = this.value">
+        <output>5</output>
+      </div>
+
+      <div class="rating">
+        <label for="alcohol">Ethanol: </label>
+        <input formControlName="alcohol" type="range" id="alcohol" name="alcohol" min="0" max="10" value="5" oninput="this.nextElementSibling.value = this.value">
+        <output>5</output>
+      </div>
+
+      <div class="rating">
+        <label for="round">Round: </label>
+        <input formControlName="smoke" type="range" id="round" name="round" min="0" max="10" value="5" oninput="this.nextElementSibling.value = this.value">
+        <output>5</output>
+      </div>
+
+      <div class="rating">
+        <label for="finish">Finish: </label>
+        <input formControlName="smoke" type="range" id="finish" name="finish" min="0" max="10" value="5" oninput="this.nextElementSibling.value = this.value">
+        <output>5</output>
+      </div>
+    </div>
+
+    <div class="form-group" id="comment">
+      <label for="comment">Comments:</label>
+      <textarea formControlName="comment" id="comment" name="comment" placeholder="enter your comments here..."></textarea>
+    </div>
+
+
+    <div class="form-group">
+      <button class="btn btn-primary" type="submit" style="width:80px"
+        [title]="tastingForm.valid ? 'Save Tasting' : 'Disabled until the form data is valid'"
+        [disabled]="!tastingForm.valid">Save
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/users/auth.service';
 import { Edition } from '../edition.model';
 import { EditionService } from '../edition.service';
 
@@ -11,7 +12,7 @@ import { EditionService } from '../edition.service';
 export class EditionDetailsComponent implements OnInit {
   edition = new Edition();
 
-  constructor(private route:ActivatedRoute, private editionService:EditionService) { }
+  constructor(private route:ActivatedRoute, private editionService:EditionService, public auth:AuthService) { }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {

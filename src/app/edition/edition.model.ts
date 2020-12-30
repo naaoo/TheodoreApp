@@ -5,6 +5,7 @@ export class Edition {
   id?: number;
   brand: string;
   name?: string;
+  region?: string;
   age?: number;
   vol?: number;
   yearBottled?: number;
