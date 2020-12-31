@@ -15,20 +15,20 @@
     <div class="form-group">
       <label for="taste">Nose:</label>
       <div id="nose" formArrayName="nose" *ngFor="let n of nose.controls; let i=index">
-        <div [formGroupName]="i">
+
           <input class="form-control" formControlName="nose" id="{{'nose' + i}}" type="text"
             placeholder="nose..."/>
-        </div>
+
       </div>
     </div>
 
     <div class="form-group">
       <label for="taste">Taste:</label>
       <div id="taste" formArrayName="taste" *ngFor="let t of taste.controls; let i=index">
-        <div [formGroupName]="i">
+
           <input class="form-control" formControlName="taste" id="{{'taste' + i}}" type="text"
             placeholder="taste..."/>
-        </div>
+
       </div>
     </div>
 

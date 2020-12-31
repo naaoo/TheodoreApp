@@ -8,6 +8,6 @@ export class TastingService {
   constructor() { }
 
   public saveTasting(tasting) : void {
-
+    console.log(tasting);
   }
 }
