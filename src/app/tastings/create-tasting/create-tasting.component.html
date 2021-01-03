@@ -4,7 +4,7 @@
 
     <div class="form-group">
       <label for="date">Date: </label>
-      <input formControlName="date" type="date">
+      <input id="date" formControlName="date" type="date">
     </div>
 
     <div class="form-group">
@@ -13,73 +13,75 @@
     </div>
 
     <div class="form-group">
-      <label for="taste">Nose:</label>
-      <div id="nose" formArrayName="nose" *ngFor="let n of nose.controls; let i=index">
-
-          <input class="form-control" formControlName="nose" id="{{'nose' + i}}" type="text"
-            placeholder="nose..."/>
-
+      <label for="noses">Nose:</label>
+      <div id="noses" formArrayName="noses" *ngFor="let nose of noses.controls; let i=index">
+        <div [formGroupName]="i">
+          <input class="form-control" formControlName="e" id="{{'nose' + i}}" type="text"
+            placeholder="nose..." />
+        </div>
       </div>
     </div>
 
     <div class="form-group">
-      <label for="taste">Taste:</label>
-      <div id="taste" formArrayName="taste" *ngFor="let t of taste.controls; let i=index">
-
-          <input class="form-control" formControlName="taste" id="{{'taste' + i}}" type="text"
-            placeholder="taste..."/>
-
+      <label for="tastes">Taste:</label>
+      <div id="noses" formArrayName="tastes" *ngFor="let taste of tastes.controls; let i=index">
+        <div [formGroupName]="i">
+          <input class="form-control" formControlName="e" id="{{'taste' + i}}" type="text"
+            placeholder="taste..." />
+        </div>
       </div>
     </div>
 
     <div class="form-group" id="ratings">
       <div class="rating">
         <label for="sweet">Sweetness: </label>
-        <input formControlName="sweet" type="range" id="sweet" name="sweet" min="0" max="10" value="5" oninput="this.nextElementSibling.value = this.value">
-        <output>5</output>
+        <input class="input-slider" type="range" id="sweet" name="sweet" min="0" max="10" value="0" tabindex="-1" oninput="this.nextElementSibling.value = this.value">
+        <input class="input-number" type="number" formControlName="sweet" min="0" max="10" value="0" oninput="this.previousElementSibling.value = this.value">
       </div>
 
       <div class="rating">
         <label for="spice">Spicyness: </label>
-        <input formControlName="spice" type="range" id="spice" name="spice" min="0" max="10" value="5" oninput="this.nextElementSibling.value = this.value">
-        <output>5</output>
+        <input class="input-slider" type="range" id="spice" name="spice" min="0" max="10" value="0" tabindex="-1" oninput="this.nextElementSibling.value = this.value">
+        <input class="input-number" type="number" formControlName="spice" min="0" max="10" value="0" oninput="this.previousElementSibling.value = this.value">
       </div>
 
       <div class="rating">
         <label for="smoke">Smoke: </label>
-        <input formControlName="smoke" type="range" id="smoke" name="smoke" min="0" max="10" value="5" oninput="this.nextElementSibling.value = this.value">
-        <output>5</output>
+        <input class="input-slider" type="range" id="smoke" name="smoke" min="0" max="10" value="0" tabindex="-1" oninput="this.nextElementSibling.value = this.value">
+        <input class="input-number" type="number" formControlName="spice" min="0" max="10" value="0" oninput="this.previousElementSibling.value = this.value">
       </div>
 
       <div class="rating">
         <label for="sherry">Sherry: </label>
-        <input formControlName="sherry" type="range" id="sherry" name="sherry" min="0" max="10" value="5" oninput="this.nextElementSibling.value = this.value">
-        <output>5</output>
+        <input class="input-slider" type="range" id="sherry" name="sherry" min="0" max="10" value="0" tabindex="-1" oninput="this.nextElementSibling.value = this.value">
+        <input class="input-number" type="number" formControlName="sherry" min="0" max="10" value="0" oninput="this.previousElementSibling.value = this.value">
       </div>
 
       <div class="rating">
         <label for="wood">Wood: </label>
-        <input formControlName="wood" type="range" id="wood" name="wood" min="0" max="10" value="5" oninput="this.nextElementSibling.value = this.value">
-        <output>5</output>
+        <input class="input-slider" type="range" id="wood" name="wood" min="0" max="10" value="0" tabindex="-1" oninput="this.nextElementSibling.value = this.value">
+        <input class="input-number" type="number" formControlName="wood" min="0" max="10" value="0" oninput="this.previousElementSibling.value = this.value">
       </div>
 
       <div class="rating">
         <label for="alcohol">Ethanol: </label>
-        <input formControlName="alcohol" type="range" id="alcohol" name="alcohol" min="0" max="10" value="5" oninput="this.nextElementSibling.value = this.value">
-        <output>5</output>
-      </div>
-
-      <div class="rating">
-        <label for="round">Round: </label>
-        <input formControlName="smoke" type="range" id="round" name="round" min="0" max="10" value="5" oninput="this.nextElementSibling.value = this.value">
-        <output>5</output>
+        <input class="input-slider" type="range" id="alcohol" name="alcohol" min="0" max="10" value="0" tabindex="-1" oninput="this.nextElementSibling.value = this.value">
+        <input class="input-number" type="number" formControlName="alcohol" min="0" max="10" value="0" oninput="this.previousElementSibling.value = this.value">
       </div>
 
       <div class="rating">
         <label for="finish">Finish: </label>
-        <input formControlName="smoke" type="range" id="finish" name="finish" min="0" max="10" value="5" oninput="this.nextElementSibling.value = this.value">
-        <output>5</output>
+        <input class="input-slider" type="range" id="finish" name="finish" min="0" max="10" value="0" tabindex="-1" oninput="this.nextElementSibling.value = this.value">
+        <input class="input-number" type="number" formControlName="finish" min="0" max="10" value="0" oninput="this.previousElementSibling.value = this.value">
+
       </div>
+
+      <div class="rating">
+        <label for="round">Round: </label>
+        <input class="input-slider" type="range" id="round" name="round" min="0" max="10" value="0" tabindex="-1" oninput="this.nextElementSibling.value = this.value">
+        <input class="input-number" type="number" formControlName="round" min="0" max="10" value="0" oninput="this.previousElementSibling.value = this.value">
+      </div>
+
     </div>
 
     <div class="form-group" id="comment">

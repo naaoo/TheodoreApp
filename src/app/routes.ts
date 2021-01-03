@@ -8,7 +8,7 @@ export const appRoutes:Routes= [
   { path: 'editions/new', component:CreateEditionComponent },
   { path: 'editions/:id', component: EditionDetailsComponent },
   { path: 'editions', component: EditionListComponent },
-  { path: 'tastings/new', component:CreateTastingComponent },
+  { path: 'tastings/new/:id', component:CreateTastingComponent },
   { path: 'tastings/:id', component:TastingDetailsComponent },
   { path: 'login', component:LoginComponent },
   { path: 'user', component:UserDataComponent },

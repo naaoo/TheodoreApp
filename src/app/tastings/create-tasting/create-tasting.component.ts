@@ -4,6 +4,9 @@ import { AuthService } from 'src/app/users/auth.service';
 import { Tasting } from '../tasting.model';
 import { TastingService } from '../tasting.service';
 import { DatePipe } from '@angular/common'
+import { Edition } from 'src/app/edition';
+import { EditionService } from 'src/app/edition/edition.service';
+import { ActivatedRoute } from '@angular/router';
 
 function validateRating(c: AbstractControl): { [key: string]: boolean } | null {
   if (c.value !== null && (isNaN(c.value) || c.value < 0 || c.value > 10)){
@@ -19,57 +22,74 @@ function validateRating(c: AbstractControl): { [key: string]: boolean } | null {
 })
 export class CreateTastingComponent implements OnInit {
   tastingForm: FormGroup;
+  edition = new Edition();
   tasting = new Tasting();
   today = this.getTodayString();
-  get nose():FormArray {
-    return <FormArray>this.tastingForm.get('nose');
+  get noses():FormArray {
+    return <FormArray>this.tastingForm.get('noses');
   }
-  get taste():FormArray {
-    return <FormArray>this.tastingForm.get('taste');
+  get tastes():FormArray {
+    return <FormArray>this.tastingForm.get('tastes');
   }
 
-  constructor(public authService:AuthService, private formBuilder:FormBuilder, private tastingService:TastingService) {
+  constructor(private route:ActivatedRoute, private editionService:EditionService, public authService:AuthService, private formBuilder:FormBuilder, private tastingService:TastingService) {}
+
+  ngOnInit() {
+    this.route.params.subscribe((params) => {
+      this.editionService.getAllEditions().subscribe(eds => {
+        const edArr = eds as Edition[];
+        this.edition = edArr.find( ed => ed.id === parseInt(params['id']));
+      })
+    }),
     this.tastingForm = this.formBuilder.group({
       id: null,
       author: this.authService.currentUser.id,
-      date: null,
-      nose: this.formBuilder.array([this.buildNose, this.buildNose, this.buildNose, this.buildNose, this.buildNose]),
-      taste: this.formBuilder.array([this.buildTaste, this.buildTaste, this.buildTaste, this.buildTaste, this.buildTaste]),
-      sweet: [null, validateRating],
-      spice: [null, validateRating],
-      smoke: [null, validateRating],
-      sherry: [null, validateRating],
-      wood: [null, validateRating],
-      alcohol: [null, validateRating],
-      round: [null, validateRating],
-      finish: [null, validateRating],
+      date: this.getTodayString(),
+      noses: this.formBuilder.array([]),
+      tastes: this.formBuilder.array([]),
+      sweet: [0, validateRating],
+      spice: [0, validateRating],
+      smoke: [0, validateRating],
+      sherry: [0, validateRating],
+      wood: [0, validateRating],
+      alcohol: [0, validateRating],
+      round: [0, validateRating],
+      finish: [0, validateRating],
       comment: '',
     });
-  }
-
-  ngOnInit() {
-
+    for (let i = 0; i < 5; i++) {
+      this.addNose();
+      this.addTaste();
+    }
   }
 
   getTodayString(): string {
     const today = new Date();
+    const t = today.toLocaleDateString('en-CA');
     return today.toLocaleDateString('en-CA');
   }
 
-  buildNose(): FormGroup {
+  buildNose() {
     return this.formBuilder.group({
-      n: ['']
+      e: new FormControl('')
     })
   }
 
-  buildTaste(): FormGroup {
+  addNose() {
+    this.noses.push(this.buildNose());
+  }
+
+  buildTaste() {
     return this.formBuilder.group({
-      t: ['']
+      e: ['']
     })
+  }
+
+  addTaste() {
+    this.tastes.push(this.buildTaste());
   }
 
   save() {
-    this.tastingService.saveTasting(this.tastingForm.value);
+    this.tastingService.saveTasting(this.tastingForm.value, this.edition);
   }
-
 }

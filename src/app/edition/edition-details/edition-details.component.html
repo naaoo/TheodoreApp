@@ -43,9 +43,8 @@
   </div>
   <div class="edition-buttons">
     <div class="nav-item box" *ngIf="this.auth.isAuthenticated"><a>Edit Edition</a></div>
-    <div class="nav-item box" *ngIf="this.auth.isAuthenticated" [routerLink]="['/tastings/new']"><a>Add Tasting</a></div>
+    <div class="nav-item box" *ngIf="this.auth.isAuthenticated" [routerLink]="['/tastings/new/', edition.id]"><a>Add Tasting</a></div>
   </div>
-
   <div>Tasting List</div>
 </div>
 

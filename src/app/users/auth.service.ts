@@ -15,7 +15,10 @@ export class AuthService {
   loginInvalid = false;
   isAuthenticated = false;
 
-  constructor(private http:HttpClient, private router:Router) { }
+  constructor(private http:HttpClient, private router:Router) {
+    //TODO: delete following line
+    this.loginUser('David', '1234');
+  }
 
   loginUser(enteredName:string, enteredPW:string) {
     let options = { headers: new HttpHeaders({ 'Content-Type': 'application/json'})};

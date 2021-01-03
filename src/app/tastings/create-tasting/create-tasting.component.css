@@ -11,17 +11,14 @@ input {
   grid-row-start: 2;
 }
 
+#comment {
+  height: 230px;
+}
+
 em {
   grid-column-start: 2;
   justify-self: right;
   color: #ff8882;
-}
-
-.barrels-form-group {
-  display: grid;
-  margin: 10px;
-  grid-template-columns: 100px;
-  row-gap: 5px;
 }
 
 .btn-primary {
@@ -34,4 +31,28 @@ em {
   display: grid;
   grid-template-rows: auto auto auto auto;
   grid-template-columns: auto auto;
+  column-gap: 25px;
+  row-gap: 10px;
+}
+
+.rating {
+  display: inline-flex;
+  justify-content: flex-end;
+}
+
+.rating .input-slider {
+  margin-left: auto;
+}
+
+.rating label {
+  margin-right: 10px;
+}
+
+.input-number {
+  width: 30px;
+  margin-left: 5px;
+}
+
+.input-slider {
+  width: 60px;
 }

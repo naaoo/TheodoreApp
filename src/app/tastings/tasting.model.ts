@@ -2,6 +2,7 @@ import { User } from '../users';
 
 export class Tasting {
   id?: number;
+  editionId: number;
   author: User
   date: Date
   nose: string[]
